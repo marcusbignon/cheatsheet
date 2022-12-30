@@ -151,3 +151,6 @@ nnoremap <C-L> :nohl<CR><C-L>
 
 set encoding=utf-8
 set mouse&
+
+set bg=dark
+
