@@ -1,0 +1,78 @@
+
+* Serverless:
+sudo npm install -g serverless
+sudo npm update -h serverless
+serverless config
+serverless create --template aws-nodejs --name xpto-api
+sls depĺoy
+
+* Lambda, GatewayAPI e Dynamodb local (offline)
+npm install serverless-offline --save-dev
+npm install serverless-dynamodb-local --save-dev
+sls plugin install --name serverless-offline
+sls plugin install --name serverless-dynamodb-local
+
+serverless plugin list
+serverless dynamodb install
+serverless.yml:
+plugins:
+   - serverless-dynamodb-local
+   - serverless-offline
+
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: false
+      noStart: true
+    migration:
+      dir: offline/migrations  
+
+serverless dynamodb migrate
+
+serverless dynamo start
+serverless offline start
+
+* Serverles AWS Documentation plugin
+npm install serverless-aws-documentation --save-dev
+serverless deploy --doc-safe-mode
+serverless downloadDocumentation --outputFileName=filename.ext
+aws s3 sync --acl public-read . s3://swagger-web-backend/
+
+
+* Npm
+npm init -y
+
+* Debug
+export SLS_DEBUG=*
+npm run debug
+npm install node-inspector -g (nao precisa)
+serverless.yml:
+  "scripts": {
+    "start": "./node_modules/.bin/serverless offline -s dev",
+    "debug": "export SLS_DEBUG=* && node --inspect ./node_modules/.bin/serverless offline -s dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+    
+* AWS CLI
+aws configure
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+
+aws dynamodb put-item \
+--endpoint-url http://localhost:8000 \
+--table-name efse \
+--item '{"uuid": {"S": "111111"}, "cnpj": {"S": "111111"}, "razaoSocial": {"S": "Empresa Command Line Interface"}}'
+
+aws dynamodb scan \
+    --table-name efse \
+    --endpoint-url http://localhost:8000
+
+aws dynamodb create-table \
+    --table-name efse \
+    --attribute-definitions AttributeName=uuid,AttributeType=S \
+    --key-schema AttributeName=uuid,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 --endpoint-url http://localhost:8000
+
+

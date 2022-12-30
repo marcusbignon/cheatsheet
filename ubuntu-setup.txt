@@ -1,0 +1,366 @@
+=> Antes de formatar o laptop
+
+* Recuperar a chave de ativacao do windows
+https://www.techtudo.com.br/dicas-e-tutoriais/noticia/2016/02/como-descobrir-chave-de-ativacao-do-windows-10.html
+QKD6R-WHMG9-D6B7H-9JFPQ-7T92M
+
+* Pendrive boot para instalacao do Ubuntu
+https://ubuntu.com/tutorials/create-a-usb-stick-on-windows#1-overview
+https://rufus.ie/
+
+* Download Ubuntu 20
+https://ubuntu.com/download/desktop
+
+0) Timeshift 2021-02-25 11:00:41 - Instalacao inicial do Ubuntu 20.04
+
+* Particionamento manual dos discos Dell (Ubuntu)
+SSD 1TB => sda1 => /home
+HDD 128GB => sdb1 => /boot/efi
+HDD 128GB => sdb2 => /
+
+* Timeshift
+sudo add-apt-repository ppa:noobslab/apps
+sudo apt-get update
+sudo apt install timeshift
+
+1) Timeshift 2021-02-25 11:09:06 - Instalacao do vim
+
+* Vim
+sudo apt-get install vim
+
+2) Timeshift 2021-02-25 11:50:35 - Instalacao do Spotify
+
+* Spotify
+Instalado via Ubuntu Software
+
+3) Timeshift 2021-02-25 14:26:38 - Instalacao VirtualBox
+
+* VirtualBox
+apt-get install virtualbox
+sudo adduser $USER vboxusers
+
+4) Timeshift 2021-02-25 15:55:35 - Instalacao e Ativacao do Windows 10 Home
+
+* Windows 10 Home em VirtualBox
+https://www.microsoft.com/en-in/software-download/windows10ISO
+VirtualBox: 4GB RAM / 60GB HDD fixed / Windows Home 64
+Chave ativacao: cat /sys/firmware/acpi/tables/MSDM
+MSDMUDELL  CBX3    "AMI FXYNV-TTKRP-XVGVR-47Y8B-RC2TB
+
+5) Timeshift 2021-02-26 10:16:41 - Instalacao Docker daemon e client
+
+* Docker
+https://docs.docker.com/engine/install/ubuntu/
+sudo apt-get remove docker docker-engine docker.io containerd runc
+sudo apt-get update
+sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo apt-key fingerprint 0EBFCD88
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo docker run hello-world
+https://docs.docker.com/engine/install/linux-postinstall/
+
+6) Timeshift 2021-02-26 14:10:43 - Linux utils, serial terminal, gocryptfs
+
+* Neofetch
+sudo add-apt-repository ppa:dawidd0811/neofetch
+sudo apt-get update
+sudo apt-get install neofetch
+
+* Ranger
+https://www.digitalocean.com/community/tutorials/installing-and-using-ranger-a-terminal-file-manager-on-a-ubuntu-vps
+sudo apt-get update
+sudo apt-get install ranger caca-utils highlight atool w3m poppler-utils mediainfo
+ranger --copy-config=all
+
+* File utils
+sudo apt-get update
+sudo apt-get install tree
+sudo apt-get install unrar
+sudo apt-get install unzip
+sudo apt-get install xkill
+sudo apt-get install trash
+
+* Terminal utils
+sudo apt-get install xclip
+
+* Linux admin utils
+sudo apt-get install ncdu
+sudo apt-get install htop
+
+* Terminal serial & ssh
+sudo apt-get install screen
+sudo apt-get install putty
+sudo apt-get install putty-tools
+
+* Gocryptfs
+https://nuetzlich.net/gocryptfs/quickstart/
+sudo apt-get install gocryptfs
+
+7) Timeshift 2021-02-27 16:08:10 - Zsh, oh-my-zsh, plugins e terminator 
+
+* Zsh
+sudo apt-get install zsh
+chsh -s $(which zsh)
+
+* Oh my zsh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+* Auto-suggestion
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+Adicionar em ~/.zshrc: plugins=(zsh-autosuggestions) e prompt_context() {} 
+
+* Prompt
+Adicionar em ~/.zshrc: prompt_context() {} 
+
+* Syntax highlight
+sudo apt-get install vim-nox zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
+
+* Fuzzy search
+git clone — depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
+* Goto
+https://github.com/iridakos/goto
+
+* Powerline, fonts-powerline 
+sudo apt-get install powerline
+sudo apt-get install fonts-powerline
+git clone https://github.com/powerline/fonts.git --depth=1
+./fonts/install.sh
+rm -rf fonts
+
+* Pygments
+apt-get install python-pygments
+
+* Terminator
+sudo add-apt-repository ppa:gnome-terminator
+sudo apt-get update
+sudo apt-get install terminator
+
+8) Timeshift 2021-02-10 17:46:05 - Java JDK, Maven, eclipse, IntelliJ e Chrome
+
+* Chrome browser
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt-get install ./google-chrome-stable_current_amd64.deb
+
+* JDK
+apt-get --yes install default-jdk
+apt-get --yes install openjdk-8-jdk
+# sudo update-alternatives --config java
+
+* JetBrains Toolbok & IntelliJ
+wget https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.20.7940.tar.gz?_ga=2.173086243.1439100868.1615229776-485462890.1615229776
+tar xvvf jetbrains-toolbox-1.20.7940.tar.gz
+
+* Maven
+apt-get install maven
+
+* SDKMan
+curl -s https://get.sdkman.io | bash
+source "/home/marcusbignon/.sdkman/bin/sdkman-init.sh"
+
+#SpringBoot
+sdk install springboot
+
+* Eclipse
+sudo snap install --classic eclipse
+cp ~/.m2/repository/org/projectlombok/lombok/1.18.16/lombok-1.18.16.jar ~/.eclipse/.
+cp /snap/eclipse/current/eclipse.ini ~/.eclipse/.
+echo "-javaagent:~/.eclipse/eclipse.ini
+echo "  
+[Desktop Entry]
+X-SnapInstanceName=eclipse
+Version=1.0
+Type=Application
+Name=Eclipse+Lombok
+Icon=/snap/eclipse/current/icon.xpm
+Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/eclipse_eclipse.desktop /snap/bin/eclipse --launcher.ini ~/.eclipse/eclipse.ini %U
+Comment=Eclipse IDE
+Categories=Development;IDE;
+Terminal=false
+StartupWMClass=eclipse
+" > ~/.local/share/applications/eclipse.desktop
+
+9) Timeshift 2021-03-11 16:00:12 - Instalacao Postman
+
+* Postman
+snap install postman
+
+10) Timeshift 2021-03-26 16:09:19 - KeyCloak Docker image
+
+* KeyCloak (docker image)
+docker pull quay.io/keycloak/keycloak
+sudo docker run -p 8080:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin quay.io/keycloak/keycloak
+
+11) Timeshift 2021-03-28 17:35:40 - Nmap e Wireshark
+
+* Nmap
+sudo apt-get install nmap
+
+* Wireshark
+sudo apt-get install wireshark
+sudo usermod -a -G wireshark marcusbignon
+
+12) Timeshift 2021-04-05 11:43:42 - Pip3 & PyCharm
+
+* Pip3
+apt-get install python3-pip
+
+* PyCharm
+via JetBrains ToolBox
+
+13) Timeshift 2021-04-xx xx:xx:xx -
+
+* OpenVPN client
+sudo apt install apt-transport-https
+sudo wget https://swupdate.openvpn.net/repos/openvpn-repo-pkg-key.pub
+sudo apt-key add openvpn-repo-pkg-key.pub
+sudo wget -O /etc/apt/sources.list.d/openvpn3.list https://swupdate.openvpn.net/community/openvpn3/repos/openvpn3-focal.list
+sudo apt update
+sudo apt install openvpn3
+
+* Slack
+wget -P ~/Downloads https://downloads.slack-edge.com/linux_releases/slack-desktop-4.14.0-amd64.deb
+sudo apt install ~/Downloads/slack-desktop-4.14.0-amd64.deb
+sudo cat /etc/apt/sources.list.d/slack.list
+sudo echo "deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main" > /etc/apt/sources.list.d/slack.list
+
+* VSCode
+snap install --classic code
+
+* Nodejs
+curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+apt-get install nodejs --yes
+
+* GitHub CLI
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+sudo apt-add-repository https://cli.github.com/packages
+sudo apt update
+sudo apt install gh
+        
+* Serverless Framework
+npm install -g serverless
+
+curl -L https://github.com/docker/compose/releases/download/1.29.1/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+* Android Studio
+sudo apt-get update
+sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1
+
+sudo apt install android-sdk
+export ANDROID_HOME=$HOME/Android/Sdk
+
+sudo add-apt-repository ppa:maarten-fonville/android-studio
+sudo apt-get update
+sudo apt-get install android-studio
+
+* Appium
+mkdir ~/appium-desktop
+cd ~/appium-desktop
+wget https://github.com/appium/appium-desktop/releases/download/v1.21.0/Appium-linux-1.21.0.AppImage
+chmod a+x Appium-linux-1.21.0.AppImage
+./Appium-linux-1.21.0.AppImage
+
+sudo npm install appium -g
+appium
+
+sudo npm install -g appium-doctor
+appium-doctor --android
+
+* Visual Paradigm
+wget https://www.visual-paradigm.com/downloads/vpce/Visual_Paradigm_CE_Linux64.sh
+./Visual_Paradigm_CE_Linux64.sh
+
+* Zoom
+wget https://zoom.us/client/latest/zoom_amd64.deb -O zoom.deb
+sudo apt install ./zoom_amd64.deb
+
+* VPN FortiClient
+wget -O - https://repo.fortinet.com/repo/6.4/ubuntu/DEB-GPG-KEY | sudo apt-key add -
+sudo echo "deb [arch=amd64] https://repo.fortinet.com/repo/6.4/ubuntu/ /bionic multiverse" >> /etc/apt/sources.list
+sudo apt-get update
+sudo apt install forticlient
+
+* Git Kraken
+sudo snap install gitkraken --classic
+
+* SVN
+sudo apt-get install subversion
+
+* RocketChat client
+sudo snap install rocketchat-desktop
+
+* Sublime Text
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+sudo apt-get update
+sudo apt-get install sublime-text
+
+* Flutter
+https://flutter.dev/docs/get-started/install/linux
+snap install flutter --classic\n
+flutter doctor --android-licenses
+
+* bat
+apt install bat
+alias bat=batcat
+
+* colordiff
+apt install colordiff
+alias diff=colordiff
+
+* discord
+wget https://dl.discordapp.net/apps/linux/0.0.16/discord-0.0.16.deb
+apt install ./discord-0.0.16.deb
+
+* whatsapp
+snap install whatsdesk
+
+* teams
+wget "https://teams.microsoft.com/downloads/desktopurl?env=production&plat=linux&arch=x64&download=true&linuxArchiveType=deb" -O teams.deb
+apt-get install ./teams.deb
+
+* dynamodb gui client
+snap install dynamodb-gui-client
+
+* fortinet vpn client CLI
+apt-get install openfortivpn
+
+* team viewer
+wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
+apt install ./teamviewer_amd64.deb
+
+* Golang
+sudo add-apt-repository ppa:longsleep/golang-backports
+sudo apt update
+sudo apt install golang-go
+
+* terraform & tfenv & terraformer
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt install terraform
+
+git clone https://github.com/tfutils/tfenv.git ~/.tfenv
+echo 'export PATH="$HOME/.tfenv/bin:$PATH"' >> ~/.bash_profile
+
+export PROVIDER={all,google,aws,kubernetes}
+curl -LO https://github.com/GoogleCloudPlatform/terraformer/releases/download/$(curl -s https://api.github.com/repos/GoogleCloudPlatform/terraformer/releases/latest | grep tag_name | cut -d '"' -f 4)/terraformer-${PROVIDER}-linux-amd64
+chmod +x terraformer-${PROVIDER}-linux-amd64
+sudo mv terraformer-${PROVIDER}-linux-amd64 /usr/local/bin/terraformer
+
+# dircolors
+dircolors -p > ~/.dircolors
+eval $(dircolors ~/.dircolors)
+Executar no .profile ou .zsh:
+[ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) ||
+    eval $(dircolors -b)
+
