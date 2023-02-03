@@ -1,0 +1,11 @@
+apt-get update
+apt-get upgrade
+apt-get install afpfs-ng-utils
+apt-get install libgcrypt-dev libfuse-dev libgmp-dev libreadline-dev libncurses-dev
+git clone https://github.com/simonvetter/afpfs-ng.git
+./configure && make && sudo make install && echo 'done!'
+
+find . -name libafpclient.so.0
+sudo cp ./afpfs-ng/lib/.libs/libafpclient.so.0 /lib/x86_64-linux-gnu/
+mount_afp afp://mbignon:xxxx@GoFlexHome.local/mbignon /home/marcusbignon/afpfs-ng/mnt
+
