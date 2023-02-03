@@ -364,3 +364,7 @@ Executar no .profile ou .zsh:
 [ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) ||
     eval $(dircolors -b)
 
+# mdless (markdown reader0
+apt update
+apt install ruby ncurses-utils
+gem install mdless

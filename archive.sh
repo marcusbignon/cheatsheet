@@ -19,7 +19,7 @@ case "$1" in
         ;;
     pull)
         echo "Pulling archive ${2} from cloud..."
-        mega-get ${2} .
+        mega-get "/archive/${2}" .
         echo "pull done."
         ;;
     extract)
